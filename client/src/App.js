@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 import Header from "./Components/Header";
+import Table from "./Components/Table";
 
 import './App.css';
 
@@ -69,7 +70,7 @@ export const App = () => {
           </p>
           <div style={{ display: "flex", justifyContent: "space-around", flexWrap: 'wrap' }}>
             <div>
-              {/* Table goes here! */}
+              <Table students={students} />
             </div>
           </div>
         </div>
