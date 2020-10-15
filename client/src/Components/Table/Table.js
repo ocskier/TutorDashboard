@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MaterialTable, { Column } from 'material-table';
+import MaterialTable from 'material-table';
 
 export default function Table({students}) {
   const [state, setState] = useState({
@@ -105,3 +105,16 @@ export default function Table({students}) {
     />
   );
 }
+
+// const promiseHandler = useMemo((newData, oldData) => 
+// new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve();
+//       setState(prevState => {
+//         const data = [...prevState.data];
+//         data.push(newData);
+//         return { ...prevState, data };
+//       });
+//     }, 600);
+//   }),
+// )

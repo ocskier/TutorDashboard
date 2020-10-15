@@ -16,12 +16,6 @@ const useStyles = makeStyles((theme) =>
     show: {
       visibility: "visible",
     },
-    chartCtn: {
-      padding: "2rem",
-      border: "3px solid lightblue",
-      width: "min-content",
-      marginTop: "15rem"
-    }
   })
 );
 
