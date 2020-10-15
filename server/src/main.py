@@ -14,15 +14,15 @@ app.config.from_pyfile('settings.py')
 # Create some test data for our catalog in the form of a list of dictionaries.
 students = [
     {
-        "class-code": "UNCC-CHA-FSF-PT-10-2020-U-C",
-        "Graduation Date": strftime("%b %d %Y",strptime("30 May 21", "%d %b %y")),
-        "Full Name": "Jon Jackson",
-        "Email": "ocskier@gmail.com",
-        "Github Id": "ocskier",
-        "Sessions/Week": "2",
-        "Time Difference": 0,
-        "Zoom Link": "SomeUrl.com",
-        "Starting Point": "Pre-work",
+        "classCode": "UNCC-CHA-FSF-PT-10-2020-U-C",
+        "graduationDate": strftime("%b %d %Y",strptime("30 May 21", "%d %b %y")),
+        "fullName": "Jon Jackson",
+        "email": "ocskier@gmail.com",
+        "githubId": "ocskier",
+        "sessionsWeek": 2,
+        "timeDiff": 0,
+        "zoomLink": "https://someUrl.com",
+        "startingPoint": "Pre-work",
         "timestamp": gmtime()
     },
 ]
