@@ -14,48 +14,51 @@ export default function Table({students}) {
     //   },
       {
         title: 'Code',
-        field: 'class-code' 
+        field: 'classCode' 
       },
-      { title: 'Name', field: 'Full Name' },
+      { title: 'Name', field: 'fullName' },
       {
         title: 'Email',
-        field: 'Email',
+        field: 'email',
       },
       {
         title: 'GH',
-        field: 'Github Id',
+        field: 'githubId',
       },
       {
         title: 'Grad Date',
-        field: 'Graduation Date'
+        field: 'graduationDate'
       },
       {
         title: 'Sessions',
-        field: 'Sessions/Week'
+        field: 'sessionsWeek'
       },
       {
         title: 'Diff',
-        field: 'Time Difference'
+        field: 'timeDiff'
       },
       {
         title: 'Zoom',
-        field: 'Zoom Link'
+        field: 'zoomLink'
       },
       {
         title: 'Spot',
-        field: 'Starting Point'
+        field: 'startingPoint'
       }
     ],
     data: [],
   });
 
   useEffect(() => {
-    console.log(students);
     setState(prevState=>{
         return { ...prevState, data: students };
     });
   }, [students]);
 
+  useEffect(()=>{
+    students.length > 0 && console.log(students);
+  },[students]);
+  
   return (
     <MaterialTable
       title=""

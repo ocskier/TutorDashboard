@@ -56,10 +56,6 @@ export const App = () => {
     fetchAllData();
   }, []);
 
-  useEffect(()=>{
-    students.length > 0 && console.log(students);
-  },[students])
-
   return (
     <div className="App">
       <Header />
