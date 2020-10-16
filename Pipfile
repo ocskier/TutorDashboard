@@ -10,7 +10,7 @@ flask = "*"
 python-dotenv = "*"
 coverage = "*"
 requests = "*"
-pymongo = {extras = ["srv"], version = "*"}
+mongoengine = "*"
 
 [requires]
 python_version = "3.9"

@@ -1,42 +1,50 @@
 import requests
 import flask
-import time
-import pymongo
+import json
+import datetime
+import mongoengine
 
 from flask import Flask, request, jsonify
-from time import strftime, strptime, time, gmtime
-from pymongo import MongoClient
+from datetime import  datetime
+from mongoengine import connect, Document, IntField, ObjectIdField, StringField, DateTimeField
 
 app = flask.Flask(__name__)
 
 app.config.from_pyfile('settings.py')
 
 if app.config.get("MONGODB_URL"):
-    client = MongoClient(app.config.get("MONGODB_URL"))
+    connect(host=app.config.get("MONGODB_URL"))
 else:
-    client = MongoClient('mongodb://localhost:27017/tutoring')
+    connect('tutoring')
 
-db = client.tutoring
-
-# student_data = {
-#     "classCode": "UNCC-CHA-FSF-PT-10-2020-U-C",
-#     "graduationDate": strftime("%b %d %Y",strptime("30 May 21", "%d %b %y")),
-#     "fullName": "Jon Jackson",
-#     "email": "ocskier@gmail.com",
-#     "githubId": "ocskier",
-#     "sessionsWeek": 2,
-#     "timeDiff": 0,
-#     "zoomLink": "https://someUrl.com",
-#     "startingPoint": "Pre-work",
-#     "timestamp": gmtime()
-# }
-
-students = db.students.find({})
+class Students(Document):
+    classCode = StringField(required=True, max_length=200)
+    graduationDate = DateTimeField()
+    fullName = StringField(required=True, max_length=100)
+    email = StringField(required=True, max_length=100)
+    githubId = StringField(required=True, max_length=50)
+    sessionsWeek = IntField(required=True, default=1)
+    timeDiff = IntField(default=0)
+    zoomLink = StringField(max_length=200)
+    startingPoint = StringField(max_length=200)
+    timestamp = DateTimeField(default=datetime.utcnow)
 
 # @app.route('/api/v1/resources/books/all', methods=['GET'])
 # def api_all():
 #     return jsonify(books)
+studentSeed = Students(
+    classCode= "UNCC-CHA-FSF-PT-10-2020-U-C",
+    graduationDate = datetime(2021, 5, 31),
+    fullName = "Jon Jackson",
+    email = "ocskier@gmail.com",
+    githubId = "ocskier",
+    sessionsWeek = 2,
+    timeDiff = 0,
+    zoomLink = "https://someUrl.com",
+    startingPoint = "Pre-work"
+)
 
+studentSeed.save()
 
 @app.route('/api/students', methods=['GET'])
 def api_id():
@@ -52,22 +60,22 @@ def api_id():
            
         # Loop through the data and match results that fit the requested ID.
         # IDs are unique, but other fields might return many results
-        for student in students:
-            if student['_id'] == id:
-                student['_id'] = str(student['_id'])
-                results.append(student)
-    else:
-        for student in students:
-            student['_id'] = str(student['_id'])
-            results.append(student);
+        for student in Students.objects:
+            if student.id == id:
+                results.append(json.loads(student.to_json()))
 
+    else:
+        for student in Students.objects:
+            results.append(json.loads(student.to_json()))
+    
     # Use the jsonify function from Flask to convert our list of
     # Python dictionaries to the JSON format.
+
     return jsonify(results)
 
 
 @app.route("/current-time")
 def get_timestamp():
-    return {'time': time()}
+    return {'time': datetime.now().timestamp()}
 
 
