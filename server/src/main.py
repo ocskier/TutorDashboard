@@ -44,7 +44,8 @@ studentSeed = Students(
     startingPoint = "Pre-work"
 )
 
-studentSeed.save()
+if Students.objects.count() == 0:
+    studentSeed.save()
 
 @app.route('/api/students', methods=['GET'])
 def api_id():
@@ -77,5 +78,3 @@ def api_id():
 @app.route("/current-time")
 def get_timestamp():
     return {'time': datetime.now().timestamp()}
-
-
