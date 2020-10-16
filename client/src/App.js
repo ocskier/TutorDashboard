@@ -60,7 +60,14 @@ export const App = () => {
           </p>
           <div style={{ display: "flex", justifyContent: "space-around", flexWrap: 'wrap' }}>
             <div>
-              <Table students={students} />
+              <Table students={students.map(student =>{
+                const numDate = new Date(student.graduationDate.$date);
+                return { 
+                  ...student, 
+                  _id: student._id.$oid, 
+                  graduationDate: `${numDate.getMonth()+1}/${numDate.getDate()}/${numDate.getFullYear()}`
+                }
+              })} />
             </div>
           </div>
         </div>
