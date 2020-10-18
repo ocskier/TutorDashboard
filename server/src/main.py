@@ -74,6 +74,23 @@ def api_id():
 
     return jsonify(results)
 
+@app.route('/api/students', methods=['POST'])
+def api_post_students():
+    newData=json.loads(request.data)
+    new_student=Students(
+        classCode=newData['classCode'],
+        graduationDate=datetime(newData['graduationDate'][0],newData['graduationDate'][1],newData['graduationDate'][2]),
+        fullName = newData['fullName'],
+        email = newData['email'],
+        githubId = newData['githubId'],
+        sessionsWeek = newData['sessionsWeek'],
+        timeDiff = newData['timeDiff'],
+        zoomLink = newData['zoomLink'],
+        startingPoint = newData['startingPoint']
+    )
+    print(new_student)
+    new_student.save()
+    return new_student.to_json()
 
 @app.route("/current-time")
 def get_timestamp():
