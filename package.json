@@ -1,0 +1,45 @@
+{
+  "name": "tutor-dashboard",
+  "version": "0.1.0",
+  "description": "A full stack project built with Python, Flask, and Create-React-App for connecting with students.",
+  "main": "./server/src/main.py",
+  "scripts": {
+    "test": "yarn run clean:reports && yarn run test:server && yarn test:server:coverage && yarn run test:client",
+    "test:server": "pipenv run coverage run --branch --source=./server/src --omit=*/tests/* -m unittest discover -s ./server/src/tests",
+    "test:server:coverage": "pipenv run coverage html -d coverage_reports --fail-under=20",
+    "test:client": "cd client && yarn test:coverage",
+    "dev:start:server": "pipenv run flask run --no-debugger",
+    "dev:start:client": "cd client && yarn start",
+    "dev:start": "concurrently \"yarn run dev:start:server\" \"yarn run dev:start:client\"",
+    "install": "concurrently \"cd client && yarn\" \"pipenv install\"",
+    "clean:reports": "rm -rf ./client/coverage && rm -rf ./coverage_reports",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run dev:start",
+    "build": "cd client && npm run build && mv build ../server/src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ocskier/TutorDashboard.git"
+  },
+  "engines": {
+    "node": ">=12.12.0",
+    "yarn": ">=1.19.0"
+  },
+  "keywords": [
+    "Python",
+    "React",
+    "Flask"
+  ],
+  "author": "Jon Jackson <ocskier@gmail.com> & Karsten Rabe <karstenrabe91@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ocskier/TutorDashboard/issues"
+  },
+  "homepage": "https://github.com/ocskier/TutorDashboard#README",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  },
+
+  "dependencies": {
+    "if-env": "^1.0.4"
+  }
+}
