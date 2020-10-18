@@ -1,3 +1,6 @@
 .main {
     height: calc(100vh - 100px);
 }
+th {
+    background-color: powderblue !important;
+}
