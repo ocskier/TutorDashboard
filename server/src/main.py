@@ -4,11 +4,11 @@ import json
 import datetime
 import mongoengine
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from datetime import  datetime
 from mongoengine import connect, Document, IntField, ObjectIdField, StringField, DateTimeField
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
 app.config.from_pyfile('settings.py')
 
@@ -95,3 +95,8 @@ def api_post_students():
 @app.route("/current-time")
 def get_timestamp():
     return {'time': datetime.now().timestamp()}
+
+@app.route("/")
+def my_index():
+    return render_template("index.html")
+
