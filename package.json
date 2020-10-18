@@ -13,7 +13,8 @@
     "dev:start": "concurrently \"yarn run dev:start:server\" \"yarn run dev:start:client\"",
     "install": "concurrently \"cd client && yarn\" \"pipenv install\"",
     "clean:reports": "rm -rf ./client/coverage && rm -rf ./coverage_reports",
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run dev:start"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run dev:start",
+    "build": "cd client && npm run build && mv build ../server/src"
   },
   "repository": {
     "type": "git",

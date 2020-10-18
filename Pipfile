@@ -11,6 +11,8 @@ python-dotenv = "*"
 coverage = "*"
 requests = "*"
 mongoengine = "*"
+gunicorn = "*"
+dnspython = "*"
 
 [requires]
 python_version = "3.9"

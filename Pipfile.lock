@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "65ef396fa1807344c775e2429d343bd63bbcbeddca49ed6b94c120182d7b77f5"
+            "sha256": "75ed2d8fcf2d6a165c6365df1b8fe127272e2939db061555161c0594767adb3e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -78,6 +78,14 @@
             "index": "pypi",
             "version": "==5.3"
         },
+        "dnspython": {
+            "hashes": [
+                "sha256:044af09374469c3a39eeea1a146e8cac27daec951f1f1f157b1962fc7cb9d1b7",
+                "sha256:40bb3c24b9d4ec12500f0124288a65df232a3aa749bb0c39734b782873a2544d"
+            ],
+            "index": "pypi",
+            "version": "==2.0.0"
+        },
         "flask": {
             "hashes": [
                 "sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060",
@@ -85,6 +93,14 @@
             ],
             "index": "pypi",
             "version": "==1.1.2"
+        },
+        "gunicorn": {
+            "hashes": [
+                "sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626",
+                "sha256:cd4a810dd51bf497552cf3f863b575dabd73d6ad6a91075b65936b151cbf4f9c"
+            ],
+            "index": "pypi",
+            "version": "==20.0.4"
         },
         "idna": {
             "hashes": [
@@ -158,7 +174,6 @@
             "version": "==0.20.0"
         },
         "pymongo": {
-            "extras": [],
             "hashes": [
                 "sha256:03dc64a9aa7a5d405aea5c56db95835f6a2fa31b3502c5af1760e0e99210be30",
                 "sha256:05fcc6f9c60e6efe5219fbb5a30258adb3d3e5cbd317068f3d73c09727f2abb6",
