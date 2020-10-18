@@ -14,8 +14,7 @@
     "install": "concurrently \"cd client && yarn\" \"pipenv install\"",
     "clean:reports": "rm -rf ./client/coverage && rm -rf ./coverage_reports",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run dev:start",
-    "build": "cd client && npm run build && mv build ../server/src",
-    "heroku-postbuild": "npm run build"
+    "build": "cd client && npm run build && mv build ../server/src"
   },
   "repository": {
     "type": "git",
