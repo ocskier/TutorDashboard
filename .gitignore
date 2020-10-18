@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Flask environment files
+/.flaskenv
+
+# Bytecode folders
+/__pycache__/
