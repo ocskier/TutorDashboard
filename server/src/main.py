@@ -6,7 +6,8 @@ import mongoengine
 
 from flask import Flask, request, jsonify, render_template
 from datetime import  datetime
-from mongoengine import connect, Document, IntField, ObjectIdField, StringField, DateTimeField
+from mongoengine import connect
+from models.students import Students
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
@@ -16,18 +17,6 @@ if app.config.get("MONGODB_URL"):
     connect(host=app.config.get("MONGODB_URL"))
 else:
     connect('tutoring')
-
-class Students(Document):
-    classCode = StringField(required=True, max_length=200)
-    graduationDate = DateTimeField()
-    fullName = StringField(required=True, max_length=100)
-    email = StringField(required=True, max_length=100)
-    githubId = StringField(required=True, max_length=50)
-    sessionsWeek = IntField(required=True, default=1)
-    timeDiff = IntField(default=0)
-    zoomLink = StringField(max_length=200)
-    startingPoint = StringField(max_length=200)
-    timestamp = DateTimeField(default=datetime.utcnow)
 
 # @app.route('/api/v1/resources/books/all', methods=['GET'])
 # def api_all():
