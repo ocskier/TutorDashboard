@@ -2,13 +2,12 @@ import requests
 import flask
 import json
 import datetime
-import models
 import mongoengine
 
 from flask import Flask, request, jsonify, render_template
 from datetime import  datetime
 from mongoengine import connect
-from models.students import Students
+from .models.students import Students
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
