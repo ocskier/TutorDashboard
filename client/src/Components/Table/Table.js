@@ -67,7 +67,12 @@ export default function Table({students}) {
       title=""
       columns={state.columns}
       data={state.data}
-      options={{ sorting: true }}
+      options={{ 
+        sorting: true,
+        rowStyle: {
+          backgroundColor: '#EEE',
+        }
+      }}
       editable={{
         onRowAdd: (newData) =>
           new Promise(resolve => {
