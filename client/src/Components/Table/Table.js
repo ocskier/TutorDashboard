@@ -20,10 +20,12 @@ export default function Table({students}) {
       {
         title: 'Email',
         field: 'email',
+        render: rowData => <a href={`mailto:${rowData.email}`}>{rowData.email}</a>,
       },
       {
         title: 'GH',
         field: 'githubId',
+        render: rowData => <a href={`https://github.com/${rowData.githubId}`} target="_blank">{rowData.githubId}</a>,
       },
       {
         title: 'Grad Date',
@@ -39,7 +41,8 @@ export default function Table({students}) {
       },
       {
         title: 'Zoom',
-        field: 'zoomLink'
+        field: 'zoomLink',
+        render: rowData => <a href={rowData.zoomLink} target="_blank">{rowData.zoomLink}</a>,
       },
       {
         title: 'Spot',
