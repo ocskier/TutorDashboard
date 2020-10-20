@@ -9,6 +9,7 @@ from flask import Flask, request, jsonify, render_template
 from datetime import  datetime
 from mongoengine import connect
 from .models.students import Students
+from .utils.mailer import sendEmail
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
@@ -79,6 +80,12 @@ def api_post_students():
     print(new_student)
     new_student.save()
     return new_student.to_json()
+
+@app.route('/api/email', methods=['POST'])
+def api_post_email():
+    emailData=json.loads(request.data)
+    sendEmail(emailData['user'], emailData['recipient']);
+    return jsonify({"message": 'Email sent'})
 
 @app.route("/current-time")
 def get_timestamp():
