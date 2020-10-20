@@ -49,7 +49,7 @@ export const App = () => {
     }
     fetchAllData();
   }, []);
-
+  
   return (
     <div className="App">
       <Header />
