@@ -10,7 +10,7 @@ def sendEmail(sender, recipient):
     receivers = recipient
 
     message = f"From: From Person <{sender}>\nTo: To Person <{recipient}>\nMIME-Version: 1.0\nContent-type: text/html\nSubject: SMTP HTML e-mail test\n\nThis is an e-mail message to be sent in HTML format\n\n<b>This is HTML message.</b>\n<h1>This is headline.</h1>"
-    print(adminUser)
+    
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com',port,context=context) as server:
             server.login(adminUser,password)
