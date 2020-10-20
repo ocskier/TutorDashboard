@@ -3,6 +3,7 @@ import flask
 import json
 import datetime
 import mongoengine
+import os
 
 from flask import Flask, request, jsonify, render_template
 from datetime import  datetime
@@ -11,10 +12,8 @@ from .models.students import Students
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
-app.config.from_pyfile('settings.py')
-
-if app.config.get("MONGODB_URL"):
-    connect(host=app.config.get("MONGODB_URL"))
+if os.getenv("MONGODB_URL"):
+    connect(host=os.getenv("MONGODB_URL"))
 else:
     connect('tutoring')
 

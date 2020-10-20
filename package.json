@@ -10,6 +10,7 @@
     "test:client": "cd client && yarn test:coverage",
     "dev:start:server": "pipenv run flask run --no-debugger",
     "dev:start:client": "cd client && yarn start",
+    "dev:start:email-client": "python -m smtpd -n -c DebuggingServer localhost:1025",
     "dev:start": "concurrently \"yarn run dev:start:server\" \"yarn run dev:start:client\"",
     "install": "concurrently \"cd client && yarn\" \"pipenv install\"",
     "clean:reports": "rm -rf ./client/coverage && rm -rf ./coverage_reports",
