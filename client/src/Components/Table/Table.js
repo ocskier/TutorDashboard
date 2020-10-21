@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 
 import './Table.css';
 
@@ -77,6 +78,7 @@ export default function Table({students}) {
             backgroundColor: "#EEE",
           },
           actionsColumnIndex: -1,
+          addRowPosition: "first",
         }}
         editable={{
           onRowAdd: (newData) =>
@@ -118,7 +120,7 @@ export default function Table({students}) {
         components={{}}
         actions={[
           {
-            icon: "send",
+            icon: () => <SendOutlinedIcon />,
             tooltip: "Send all emails",
             isFreeAction: true,
             disabled: true,
