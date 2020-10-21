@@ -9,6 +9,7 @@ from mongoengine import connect
 from threading import Timer
 from .models.students import Students
 from .utils.mailer import sendEmail
+from .seeders.seeds import studentSeed
 
 app = flask.Flask(__name__, static_url_path='', static_folder='build', template_folder="build")
 
@@ -20,17 +21,6 @@ else:
 # @app.route('/api/v1/resources/books/all', methods=['GET'])
 # def api_all():
 #     return jsonify(books)
-studentSeed = Students(
-    classCode= "UNCC-CHA-FSF-PT-10-2020-U-C",
-    graduationDate = datetime(2021, 5, 31),
-    fullName = "Jon Jackson",
-    email = "ocskier@gmail.com",
-    githubId = "ocskier",
-    sessionsWeek = 2,
-    timeDiff = 0,
-    zoomLink = "https://someUrl.com",
-    startingPoint = "Pre-work"
-)
 
 if Students.objects.count() == 0:
     studentSeed.save()
