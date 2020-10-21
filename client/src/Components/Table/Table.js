@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 
+import './Table.css';
+
 export default function Table({students}) {
   const [state, setState] = useState({
     columns: [
@@ -63,54 +65,68 @@ export default function Table({students}) {
   },[students]);
   
   return (
-    <MaterialTable
-      title=""
-      columns={state.columns}
-      data={state.data}
-      options={{ 
-        sorting: true,
-        rowStyle: {
-          backgroundColor: '#EEE',
-        }
-      }}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              setState(prevState => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState(prevState => {
+    <>
+      <MaterialTable
+        title=""
+        columns={state.columns}
+        data={state.data}
+        options={{
+          tableLayout: "auto",
+          sorting: true,
+          rowStyle: {
+            backgroundColor: "#EEE",
+          },
+          actionsColumnIndex: -1,
+        }}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+                setState((prevState) => {
                   const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
+                  data.push(newData);
                   return { ...prevState, data };
                 });
-              }
-            }, 600);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              setState(prevState => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
-      }}
-    />
+              }, 600);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+                if (oldData) {
+                  setState((prevState) => {
+                    const data = [...prevState.data];
+                    data[data.indexOf(oldData)] = newData;
+                    return { ...prevState, data };
+                  });
+                }
+              }, 600);
+            }),
+          onRowDelete: (oldData) =>
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+                setState((prevState) => {
+                  const data = [...prevState.data];
+                  data.splice(data.indexOf(oldData), 1);
+                  return { ...prevState, data };
+                });
+              }, 600);
+            }),
+        }}
+        components={{}}
+        actions={[
+          {
+            icon: "send",
+            tooltip: "Send all emails",
+            isFreeAction: true,
+            disabled: true,
+            onClick: (event) => alert("Sending all emails"),
+          },
+        ]}
+      />
+    </>
   );
 }
 
