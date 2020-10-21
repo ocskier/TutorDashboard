@@ -1,13 +1,12 @@
+import datetime, json, os
 import requests
 import flask
-import json
-import datetime
 import mongoengine
-import os
 
 from flask import Flask, request, jsonify, render_template
-from datetime import  datetime
+from datetime import datetime
 from mongoengine import connect
+from threading import Timer
 from .models.students import Students
 from .utils.mailer import sendEmail
 
@@ -84,7 +83,8 @@ def api_post_students():
 @app.route('/api/email', methods=['POST'])
 def api_post_email():
     emailData=json.loads(request.data)
-    sendEmail(emailData['user'], emailData['recipient']);
+    t=Timer(30.00,sendEmail, [emailData['user'], emailData['recipient']])
+    t.start()
     return jsonify({"message": 'Email sent'})
 
 @app.route("/current-time")
