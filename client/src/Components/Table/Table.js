@@ -20,7 +20,6 @@ export default function Table({students}) {
                 color="primary"
               />
             }
-            label="Primary"
           />
         ),
         cellStyle: {
