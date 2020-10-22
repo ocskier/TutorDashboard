@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import {Checkbox, FormControlLabel} from "@material-ui/core";
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 
 import './Table.css';
@@ -7,53 +8,76 @@ import './Table.css';
 export default function Table({students}) {
   const [state, setState] = useState({
     columns: [
-    //   {
-    //     title: '',
-    //     field: 'pic',
-    //     render: rowData => <img src={rowData.pic} style={{ width: 100, borderRadius: '50%' }} />,
-    //     cellStyle: {
-    //       textAlign: 'center',
-    //     },
-    //   },
       {
-        title: 'Code',
-        field: 'classCode' 
-      },
-      { title: 'Name', field: 'fullName' },
-      {
-        title: 'Email',
-        field: 'email',
-        render: rowData => <a href={`mailto:${rowData.email}`}>{rowData.email}</a>,
-      },
-      {
-        title: 'GH',
-        field: 'githubId',
-        render: rowData => <a href={`https://github.com/${rowData.githubId}`} target="_blank">{rowData.githubId}</a>,
+        title: "",
+        render: (rowData) => (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={checkedState[`checked-${rowData.fullName}`]}
+                onChange={handleCheckChange}
+                name={`checked-${rowData.fullName}`}
+                color="primary"
+              />
+            }
+            label="Primary"
+          />
+        ),
+        cellStyle: {
+          textAlign: "center",
+        },
       },
       {
-        title: 'Grad Date',
-        field: 'graduationDate'
+        title: "Code",
+        field: "classCode",
+      },
+      { title: "Name", field: "fullName" },
+      {
+        title: "Email",
+        field: "email",
+        render: (rowData) => (
+          <a href={`mailto:${rowData.email}`}>{rowData.email}</a>
+        ),
       },
       {
-        title: 'Sessions',
-        field: 'sessionsWeek'
+        title: "GH",
+        field: "githubId",
+        render: (rowData) => (
+          <a href={`https://github.com/${rowData.githubId}`} target="_blank">
+            {rowData.githubId}
+          </a>
+        ),
       },
       {
-        title: 'Diff',
-        field: 'timeDiff'
+        title: "Grad Date",
+        field: "graduationDate",
       },
       {
-        title: 'Zoom',
-        field: 'zoomLink',
-        render: rowData => <a href={rowData.zoomLink} target="_blank">{rowData.zoomLink}</a>,
+        title: "Sessions",
+        field: "sessionsWeek",
       },
       {
-        title: 'Spot',
-        field: 'startingPoint'
-      }
+        title: "Diff",
+        field: "timeDiff",
+      },
+      {
+        title: "Zoom",
+        field: "zoomLink",
+        render: (rowData) => (
+          <a href={rowData.zoomLink} target="_blank">
+            {rowData.zoomLink}
+          </a>
+        ),
+      },
+      {
+        title: "Spot",
+        field: "startingPoint",
+      },
     ],
     data: [],
   });
+  const [checkedState, setCheckedState] = React.useState({});
+  const [isSendAvail, setIsSendAvail] = React.useState(false);
 
   useEffect(() => {
     setState(prevState=>{
@@ -62,8 +86,19 @@ export default function Table({students}) {
   }, [students]);
 
   useEffect(()=>{
-    students.length > 0 && console.log(students);
-  },[students]);
+    let checkedArray = Object.entries(checkedState).map((keyValArr) =>
+      keyValArr[1]).filter((checkedVal) => checkedVal);
+      checkedArray.length > 0 ? setIsSendAvail(true) : setIsSendAvail(false);
+  },[checkedState]);
+
+  const handleCheckChange = (event) => {
+    setCheckedState(prevState=>{
+      return {
+        ...prevState, 
+        [event.target.name]: event.target.checked 
+      }
+    });
+  };
 
   const addStudent = (studentObj) => {
     const splitDate = studentObj.graduationDate.split('/');
@@ -96,12 +131,22 @@ export default function Table({students}) {
           actionsColumnIndex: -1,
           addRowPosition: "first",
         }}
+        components={{}}
+        actions={[
+          {
+            icon: () => <SendOutlinedIcon />,
+            tooltip: "Send all emails",
+            isFreeAction: true,
+            disabled: isSendAvail ? false : true,
+            onClick: (event) => alert("Sending all emails"),
+          }
+        ]}
         editable={{
           onRowAdd: async (newData) => {
             try {
-                const response = await addStudent(newData)
+              const response = await addStudent(newData);
             } catch (err) {
-              return
+              return;
             }
             new Promise((resolve) => {
               setTimeout(() => {
@@ -139,16 +184,6 @@ export default function Table({students}) {
               }, 600);
             }),
         }}
-        components={{}}
-        actions={[
-          {
-            icon: () => <SendOutlinedIcon />,
-            tooltip: "Send all emails",
-            isFreeAction: true,
-            disabled: true,
-            onClick: (event) => alert("Sending all emails"),
-          },
-        ]}
       />
     </>
   );
