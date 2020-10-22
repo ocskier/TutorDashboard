@@ -64,6 +64,22 @@ export default function Table({students}) {
   useEffect(()=>{
     students.length > 0 && console.log(students);
   },[students]);
+
+  const addStudent = (studentObj) => {
+    const splitDate = studentObj.graduationDate.split('/');
+    return fetch("/api/students", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...studentObj,
+        graduationDate: [
+          parseInt(splitDate[2]),
+          parseInt(splitDate[0]),
+          parseInt(splitDate[1]),
+        ],
+      }),
+    });
+  }
   
   return (
     <>
@@ -81,7 +97,12 @@ export default function Table({students}) {
           addRowPosition: "first",
         }}
         editable={{
-          onRowAdd: (newData) =>
+          onRowAdd: async (newData) => {
+            try {
+                const response = await addStudent(newData)
+            } catch (err) {
+              return
+            }
             new Promise((resolve) => {
               setTimeout(() => {
                 resolve();
@@ -91,7 +112,8 @@ export default function Table({students}) {
                   return { ...prevState, data };
                 });
               }, 600);
-            }),
+            });
+          },
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve) => {
               setTimeout(() => {
