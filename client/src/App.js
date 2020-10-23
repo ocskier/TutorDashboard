@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) =>
     show: {
       visibility: "visible",
     },
+    tableWrapper: { 
+      width: '100%'
+    }
   })
 );
 
@@ -59,7 +62,7 @@ export const App = () => {
             {!time ? "Loading..." : `${time}`}
           </p>
           <div style={{ display: "flex", justifyContent: "space-around", flexWrap: 'wrap' }}>
-            <div>
+            <div className={classes.tableWrapper}>
               <Table students={students.map(student =>{
                 const numDate = new Date(student.graduationDate.$date);
                 return { 

@@ -43,7 +43,11 @@ export default function Table({students}) {
         title: "GH",
         field: "githubId",
         render: (rowData) => (
-          <a href={`https://github.com/${rowData.githubId}`} target="_blank">
+          <a
+            href={`https://github.com/${rowData.githubId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {rowData.githubId}
           </a>
         ),
@@ -64,7 +68,7 @@ export default function Table({students}) {
         title: "Zoom",
         field: "zoomLink",
         render: (rowData) => (
-          <a href={rowData.zoomLink} target="_blank">
+          <a href={rowData.zoomLink} target="_blank" rel="noopener noreferrer">
             {rowData.zoomLink}
           </a>
         ),
