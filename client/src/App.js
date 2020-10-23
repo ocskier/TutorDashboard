@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) =>
     show: {
       visibility: "visible",
     },
-    tableWrapper: { 
-      width: '100%'
-    }
+    tableWrapper: {
+      width: "100%",
+    },
   })
 );
 
@@ -61,17 +61,15 @@ export const App = () => {
           <p className="pt-2 text-center text-success">
             {!time ? "Loading..." : `${time}`}
           </p>
-          <div style={{ display: "flex", justifyContent: "space-around", flexWrap: 'wrap' }}>
-            <div className={classes.tableWrapper}>
-              <Table students={students.map(student =>{
-                const numDate = new Date(student.graduationDate.$date);
-                return { 
-                  ...student, 
-                  _id: student._id.$oid, 
-                  graduationDate: `${numDate.getMonth()+1}/${numDate.getDate()}/${numDate.getFullYear()}`
-                }
-              })} />
-            </div>
+          <div className={classes.tableWrapper}>
+            <Table students={students.map(student =>{
+              const numDate = new Date(student.graduationDate.$date);
+              return { 
+                ...student, 
+                _id: student._id.$oid, 
+                graduationDate: `${numDate.getMonth()+1}/${numDate.getDate()}/${numDate.getFullYear()}`
+              }
+            })} />
           </div>
         </div>
       ) : (
