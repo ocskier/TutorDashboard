@@ -69,8 +69,8 @@ def sendEmail(sender, recipient):
     part1 = MIMEText(text, "plain")
     part2 = MIMEText(html, "html")
 
-    message.attach(part1);
-    message.attach(part2);
+    message.attach(part1)
+    message.attach(part2)
     
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com',port,context=context) as server:
