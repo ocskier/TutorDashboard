@@ -36,7 +36,7 @@ def api_id():
     
     if 'id' in request.args:
         id = int(request.args['id'])
-           
+
         # Loop through the data and match results that fit the requested ID.
         # IDs are unique, but other fields might return many results
         for student in Students.objects:
@@ -73,7 +73,7 @@ def api_post_students():
 @app.route('/api/email', methods=['POST'])
 def api_post_email():
     emailData=json.loads(request.data)
-    t=Timer(30.00,sendEmail, [emailData['user'], emailData['recipient']])
+    t=Timer(30.00,sendEmail, [emailData])
     t.start()
     return jsonify({"message": 'Email sent'})
 

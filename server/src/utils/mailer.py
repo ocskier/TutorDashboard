@@ -6,22 +6,22 @@ from email.mime.multipart import MIMEMultipart
 port = 465
 context = ssl.create_default_context()
 
-def sendEmail(sender, recipient):
+def sendEmail(emailData):
     adminUser = os.getenv("ADMIN_USERNAME")
     password = os.getenv("ADMIN_PASSWORD")
-    sender = sender
-    receivers = recipient
+    sender = emailData["tutor"]
+    receivers = emailData["recipient"]
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Tutor Confirmation"
     message["From"] = sender
-    message["To"] = recipient
+    message["To"] = receivers
 
     text = """\
     Hi,
     Thank you for scheduling your first session with me which will occur on 
-    Tuesday, October 27 - 10:30 am (Central Time - US & Canada).
-    This session will take place here: https://zoom.us/
+    {date}.
+    This session will take place here: {zoomLink}
     (If you have not used zoom before please join the meeting at least 15 minutes early because it may have you download and install some software.)
     Again, all I need from you:
     Be on Tutors & Students Slack 5 minutes before your time slot.
@@ -32,8 +32,12 @@ def sendEmail(sender, recipient):
     Please Reply All to this email so that I know you have seen it.
     (CC Central Support on all tutor email by always using REPLY ALL).
     Sincerely,
-    Jon Jackson
-    """
+    {fullName}
+    """.format(
+        date="Tomorrow",
+        zoomLink=emailData["zoomLink"],
+        fullName=emailData["fullName"],
+    )
     html = """\
     <html>
     <body>
@@ -41,9 +45,9 @@ def sendEmail(sender, recipient):
         <br>
             Thank you for scheduling your first session with me which will occur on <br>
         <br>
-        Tuesday, October 27 - 10:30 am (Central Time - US & Canada).<br>
+        {date}.<br>
         <br>
-        This session will take place here: <a href="http://www.zoom.com">Real Python</a> <br>
+        This session will take place here: <a href="{zoomLink}">Zoom Link</a> <br>
         <br>
         (If you have not used zoom before please join the meeting at least 15 minutes early because it may have you download and install some software.)<br>
         <br>
@@ -61,10 +65,14 @@ def sendEmail(sender, recipient):
         (CC Central Support on all tutor email by always using REPLY ALL).<br>
         <br>
         Sincerely,<br>
-        <br>Jon Jackson</p>
+        <br>{fullName}</p>
     </body>
     </html>
-    """
+    """.format(
+        date="Tomorrow",
+        zoomLink=emailData["zoomLink"],
+        fullName=emailData["fullName"],
+    )
 
     part1 = MIMEText(text, "plain")
     part2 = MIMEText(html, "html")
