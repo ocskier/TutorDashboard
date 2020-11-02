@@ -56,8 +56,8 @@ def api_id():
 def api_post_students():
     newData=json.loads(request.data)
     new_student=Students(
-        classCode=newData['classCode'],
-        graduationDate=datetime(newData['graduationDate'][0],newData['graduationDate'][1],newData['graduationDate'][2]),
+        classCode = newData['classCode'],
+        graduationDate = datetime(*newData['graduationDate']),
         fullName = newData['fullName'],
         email = newData['email'],
         githubId = newData['githubId'],
