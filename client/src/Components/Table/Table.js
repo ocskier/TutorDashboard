@@ -148,19 +148,14 @@ export default function Table({students}) {
           onRowAdd: async (newData) => {
             try {
               const response = await addStudent(newData);
+              setState((prevState) => {
+                const data = [...prevState.data];
+                data.push(newData);
+                return { ...prevState, data };
+              });
             } catch (err) {
               return;
             }
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data.push(newData);
-                  return { ...prevState, data };
-                });
-              }, 600);
-            });
           },
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve) => {

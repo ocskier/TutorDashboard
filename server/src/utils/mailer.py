@@ -19,7 +19,7 @@ def sendEmail(emailData):
     message["Subject"] = "Tutor Confirmation"
     message["From"] = adminUser
     message["To"] = receivers
-    message["Cc"] = sender
+    message["Cc"] = sender, "centraltutor@bcs.com"
 
     text = emailText(emailData)
     html = emailHtml(emailData)
